@@ -21,7 +21,7 @@ class Review extends React.Component {
         <div>
           <Grid>
             <Row>
-              <Col xs={6} md={3}>
+              <Col xs={6} md={2}>
                 Coffee/Tea:<br />
                 <StarRatings
                   numberOfStars={5}
@@ -34,7 +34,7 @@ class Review extends React.Component {
                   starHoverColor="gold"
                 />
               </Col>
-              <Col xs={6} md={3}>
+              <Col xs={6} md={2}>
                 Atmosphere:<br />
                 <StarRatings
                   numberOfStars={5}
@@ -47,7 +47,7 @@ class Review extends React.Component {
                   starHoverColor="gold"
                 />
               </Col>
-              <Col xs={6} md={3}>
+              <Col xs={6} md={2}>
                 Comfort:<br />
                 <StarRatings
                   numberOfStars={5}
@@ -60,7 +60,7 @@ class Review extends React.Component {
                   starHoverColor="gold"
                 />
               </Col>
-              <Col xs={6} md={3}>
+              <Col xs={6} md={2}>
                 Food:<br />
                 <StarRatings
                   numberOfStars={5}
@@ -86,11 +86,11 @@ class Review extends React.Component {
                 onChange={this.props.enterReview}
               />
             </FormGroup>
+          <Button onClick={this.props.submitReview}> Submit </Button>
           </div>
 
-          <Button onClick={this.props.submitReview}> Submit </Button>
         </div>
-      )
+      );
     // if user is not logged in, will not render review page
     } else {
       return null;
