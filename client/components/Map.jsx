@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Thumbnail,
   Button,
 } from 'react-bootstrap';
 import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
