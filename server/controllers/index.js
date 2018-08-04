@@ -249,8 +249,8 @@ app.get('/reviews', (req, res) => {
 });
 
 app.get('/flashcardDecks', (req, res) => {
+  //Gets the list of deck names that the user has made
   let user_id = req.query.user_id
-  // console.log('in server.  here is the user id: ', user_id)
   models.fetchDeckNames(user_id, (err, data) => {
     if (err) console.log(err)
     else {
@@ -262,10 +262,10 @@ app.get('/flashcardDecks', (req, res) => {
 })
 
 app.get('/flashcardDeck', (req, res) => {
+  //Gets all the flashcards for a particular user and title
   let {user_id, deckName} = req.query
-  // console.log('in server.  here are the get deck params: ', user_id, deckName)
   models.fetchFullDeck(user_id, deckName, (err, data) => {
-    // console.log('here is the info from the db', data)
+    //assembles the deck into the format it will be used on the client side
     let deckToSend = {id: 1, name: deckName, cards: []}
     data.forEach((card) => {
       deckToSend.cards.push({
@@ -283,8 +283,8 @@ app.get('/*', auth, (req, res) => {
 });
 
 app.post('/flashcards', (req, res) => {
+  //saves a series of flashcards to the database
   let {user_id, newDeck} = req.body
-  // console.log('here is the newDeck: ', newDeck)
   models.saveFlashcardDeck(user_id, newDeck, (err) => {
     if (err) console.log('In the server, err sending to the db', err)
     else res.sendStatus(201)
