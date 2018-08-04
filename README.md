@@ -43,6 +43,12 @@ From within the root directory:
 npm install
 ```
 
+### Database
+
+Open the file server/db/config.example.js to set up the credentials for your own database. The current setup in the file is for AWS.
+
+Once complete, change the name of the file to config.js
+
 ## Contributing
 
 See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
