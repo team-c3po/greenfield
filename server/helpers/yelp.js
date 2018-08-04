@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../../config_example.js');
+const config = require('../../config.js');
 
 let options = {
   headers: {
