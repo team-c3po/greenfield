@@ -189,7 +189,7 @@ a:focus {
 /* CAFE SEARCH STYLING */
 
 .cafeView-modal {
-  width: 75%;
+  width: 50%;
   height: 95%;
 }
 
@@ -206,3 +206,7 @@ a:focus {
   display: inline-block;
   align: center;
 }
+/* .stars {
+  margin-top: 3%;
+  align: center;
+} */

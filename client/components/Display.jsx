@@ -364,7 +364,7 @@ class Display extends React.Component {
                       </Row>
                     </Grid>
 
-                    <Carousel bsClass='sidebysideRight carousel'>
+                    <Carousel bsClass='carousel'>
                       <Carousel.Item>
                         <img
                           style={{ maxWidth: '600px', height: '50%' }}
