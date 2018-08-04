@@ -12,14 +12,15 @@ class Favorites extends React.Component {
       favorites: []
     };
   }
+  
 
   modalBody() {
-    if (this.state.favorites.length) {
+    if (this.props.favorites.length) {
       return (
         <div>
           <Modal.Body>
             <StackGrid columnWidth={300} monitorImagesLoaded={true}>
-              {this.state.favorites.map((cafe) => {
+              {this.props.favorites.map((cafe) => {
                 return (
                   <div key={cafe.id}>
                     <Thumbnail height="250">
@@ -42,23 +43,6 @@ class Favorites extends React.Component {
         </div>
       );
     }
-  }
-
-  componentWillMount() {
-    axios
-      .get('/favorites', {
-        params: {
-          user_id: this.props.userId
-        }
-      })
-      .then((response) => {
-        this.setState({
-          favorites: response.data
-        });
-      })
-      .catch((err) => {
-        console.error('Error getting favorites', err);
-      });
   }
 
   render() {

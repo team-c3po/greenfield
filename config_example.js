@@ -1,1 +1,0 @@
-module.exports.YELPAPI = `${process.env.YELP_API}`;

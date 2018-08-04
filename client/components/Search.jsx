@@ -192,7 +192,7 @@ class Search extends React.Component {
         {this.renderAdvancedSearch()}
         </div>
 
-        <div>
+        <div id="search-button">
 
           <Button
             className="center"

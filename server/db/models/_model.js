@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt-nodejs');
-
 const db = require('../db_config.js');
 
 let saveSpots = function(studySpotList) {
@@ -128,16 +127,19 @@ let login = function({ username }, cb) {
   });
 };
 
-let register = function({ username, password }, cb) {
+let register = function({ username, password, creditCard }, cb) {
+
   bcrypt.hash(password, null, null, (err, hash) => {
     if (err) {
       console.error('Error hashing password', err);
     } else {
-      var params = [username, hash];
-
+      var creditCardJSON = JSON.stringify (creditCardJSON)
+      var params = [username, hash, creditCardJSON];
+      
       db.getConnection((err, conn) => {
         conn.query(
-          `INSERT INTO users (username, password) VALUES (?, ?)`,
+          `INSERT INTO users (username, password, creditCard) VALUES (?, ?, ?)`,
+
           params,
           (err, result) => {
             if (err) {
@@ -199,14 +201,13 @@ let getRating = function({ location_id }, cb) {
 
 let addFavorite = function({ user_id, location_id }, cb) {
   var params = [user_id, location_id];
-
   db.getConnection((err, conn) => {
     conn.query(
       `INSERT INTO users_locations VALUES (?, ?)`,
       params,
       (err, results) => {
         if (err) {
-          console.error('Error inserting into favorites', err);
+          console.log('Error inserting into favorites', err);
         } else {
           console.log('Inserted into favorites', results);
           cb(null, results);
@@ -217,10 +218,10 @@ let addFavorite = function({ user_id, location_id }, cb) {
   });
 };
 
-let getFavorite = function({ user_id }, cb) {
+let getFavorite = function(user_id, cb) {
   var command = `SELECT id, name, city, state, address, image1, image2, image3
-                 FROM users_locations
-                 JOIN locations ON locations.id=users_locations.location_id
+                 FROM locations
+                 JOIN users_locations ON locations.id=users_locations.location_id
                  WHERE users_locations.user_id=${user_id}`;
 
   db.getConnection((err, conn) => {
@@ -319,6 +320,47 @@ let getFullReviews = function({ location_id }, cb) {
   });
 };
 
+
+let saveFlashcardDeck = function(user_id, newDeck, cb) {
+  var command = `INSERT INTO flashcards (user_id, title, front, back, card_id)
+                VALUES (?, ?, ?, ?, ?)`
+  db.getConnection((err, conn) => {
+    newDeck.cards.forEach((card) => {
+      var params = [user_id, newDeck.name, card.front, card.back, card.id]
+      conn.query(command, params, (err) => {
+        if (err) console.log(err)
+      })
+    })
+    conn.query(`INSERT INTO flashcard_decks (user_id, title) VALUES (?, ?)`, [user_id, newDeck.name], 
+      (err) => {
+        if (err) cb(err)
+        else cb(null)
+    })
+    conn.release();
+  });
+};
+
+let fetchDeckNames = function(user_id, cb) {
+  var command = `SELECT title FROM flashcard_decks WHERE user_id = ${user_id}`
+  db.getConnection((err, conn) => {
+    conn.query(command, (err, docs) => {
+      if (err) cb(err)
+      else cb(null, docs)
+    })
+  });
+};
+
+let fetchFullDeck = function(user_id, deckName, cb) {
+  var command = `SELECT * FROM flashcards WHERE user_id = ${user_id} AND title = '${deckName}'`
+  db.getConnection((err, conn) => {
+    conn.query(command, (err, docs) => {
+      if (err) cb(err)
+      else cb(null, docs)
+    })
+    conn.release()
+  });
+};
+
 module.exports = {
   saveSpots: saveSpots,
   getRelevantFirst: getRelevantFirst,
@@ -332,5 +374,8 @@ module.exports = {
   addComment: addComment,
   getComment: getComment,
   addPics: addPics,
-  getFullReviews: getFullReviews
+  getFullReviews: getFullReviews,
+  saveFlashcardDeck: saveFlashcardDeck,
+  fetchDeckNames: fetchDeckNames,
+  fetchFullDeck: fetchFullDeck
 };

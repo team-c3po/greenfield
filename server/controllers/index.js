@@ -31,6 +31,29 @@ app.get('/logout', (req, res) => {
   res.send();
 });
 
+app.post ('/orders', (req, res) => {
+  console.log (req.body)
+  let creditCard = req.body.params.creditCard;
+  let productID = req.body.params.productID;
+  let shippingAddress = req.body.params.shippingAddress;
+  if (creditCard.number.length !== 16) {
+    res.send ('Error: Credit Card is not 16 digits long')
+  }
+  if (creditCard.code === '') {
+    res.send ('Error: No Security Code Provided')
+  }  
+  if (creditCard.name === '') {
+    res.send ('Error: No Card Owner Name Provided')
+  }  
+  if (creditCard.year < 2018) {
+    res.send ('Error: Credit Card Expiration Year is past')
+  }
+  if (creditCard.month > 12 || creditCard < 1) {
+    res.send ('Error: Credit Card Expiration Month is not valid')
+  }
+  res.send (req.body)
+})
+
 app.get('/search', (req, res) => {
   // req.query should have [coffee, atmosphere, comfort, food, location, radius] as keys
 
@@ -89,13 +112,16 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
+  console.log (req.body)
   models.register(req.body, (err, data) => {
     if (err) {
       console.error('Username is taken');
+      console.log (err)
     } else {
       var sess = {
         username: req.body.username,
         userId: data.insertId,
+        creditCard: req.body.creditCard,
         login: true
       };
 
@@ -153,10 +179,11 @@ app.post('/favorites', (req, res) => {
 
 app.get('/favorites', (req, res) => {
   // req.query should have user_id as a key
-
-  models.getFavorite(req.query, (err, data) => {
+  console.log(req.query.user_id);
+  
+  models.getFavorite(req.query.user_id, (err, data) => {
     if (err) {
-      res.send();
+      console.log('Express server received db error: ', err);
     } else {
       res.send(JSON.stringify(data));
     }
@@ -221,9 +248,49 @@ app.get('/reviews', (req, res) => {
   });
 });
 
+app.get('/flashcardDecks', (req, res) => {
+  //Gets the list of deck names that the user has made
+  let user_id = req.query.user_id
+  models.fetchDeckNames(user_id, (err, data) => {
+    if (err) console.log(err)
+    else {
+      let arr = [];
+      data.forEach((item) => arr.push(item.title))
+      res.send(arr)
+    }
+  })
+})
+
+app.get('/flashcardDeck', (req, res) => {
+  //Gets all the flashcards for a particular user and title
+  let {user_id, deckName} = req.query
+  models.fetchFullDeck(user_id, deckName, (err, data) => {
+    //assembles the deck into the format it will be used on the client side
+    let deckToSend = {id: 1, name: deckName, cards: []}
+    data.forEach((card) => {
+      deckToSend.cards.push({
+        id: card.card_id,
+        front: card.front,
+        back: card.back
+      })
+    })
+    res.send(deckToSend)
+  })
+})
+
 app.get('/*', auth, (req, res) => {
   res.send(req.session.userData);
 });
+
+app.post('/flashcards', (req, res) => {
+  //saves a series of flashcards to the database
+  let {user_id, newDeck} = req.body
+  models.saveFlashcardDeck(user_id, newDeck, (err) => {
+    if (err) console.log('In the server, err sending to the db', err)
+    else res.sendStatus(201)
+  })
+});
+
 
 const port = process.env.PORT || 8080;
 

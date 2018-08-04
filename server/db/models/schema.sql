@@ -3,7 +3,8 @@ USE greenfield;
 CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(255) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL
+  password VARCHAR(255) NOT NULL,
+  creditCard VARCHAR (255)
 );
 
 CREATE TABLE locations (
@@ -41,4 +42,21 @@ CREATE TABLE comments (
   FOREIGN KEY (user_id) REFERENCES users(id),
   location VARCHAR(255),
   FOREIGN KEY (location) REFERENCES locations(id) 
+);
+
+CREATE TABLE flashcards (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  title VARCHAR(25),
+  front VARCHAR(30),
+  back VARCHAR(300),
+  card_id INT
+);
+
+CREATE TABLE flashcard_decks (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  title VARCHAR(25)
 );

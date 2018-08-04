@@ -65,3 +65,148 @@ a:focus {
 #reviewSubmissionModal .modal-content {
   margin-top: 60%
 }
+.sidebysideLeft {
+  float:left;
+  display: inline-block;
+}
+.sidebysideRight {
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  .flashcard-app .btn {
+    font-size: 3vmax;
+  }
+}
+@media (min-width: 768px) {
+  .flashcard-app .btn {
+    font-size: 2vmax;
+  }
+}
+
+/*flashcard section */
+.flashcard-app {
+  height: 100%;
+}
+.flashcard-app .row {
+  margin: 0;
+  position: relative;
+}
+.flashcard-app .middle-row {
+  height: 80%;
+}
+.flashcard-app .middle-row .col-md-12 {
+  height: 100%;
+}
+.flashcard-app .deck {
+  height: 85%;
+}
+.flashcard-app .ratings {
+  height: 20%;
+  background-color: #1a1a1a;
+}
+.flashcard-app .ratings li {
+  width: 20%;
+}
+.flashcard-app .ratings li,
+.flashcard-app .ratings a {
+  height: 100%;
+  text-align: center;
+  font-size: 2vmax;
+}
+.flashcard-app .card {
+  height: 100%;
+  z-index: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+}
+.flashcard-app .card[data-is-current='true'] {
+  display: block;
+  transform-style: preserve-3d;
+  -webkit-transition: all 0.75s ease;
+  -moz-transition: all 0.75s ease;
+  transition: all 0.75s ease;
+}
+.flashcard-app .card[data-is-flipped='true'] {
+  transform: rotateY(180deg);
+}
+.flashcard-app .card-face {
+  height: 100%;
+  backface-visibility: hidden;
+  width: 100%;
+  background: #1a1a1a;
+  font-size: 6vmax;
+  color: lightskyblue;
+  position: absolute;
+  text-align: center;
+}
+.flashcard-app .card-face.back {
+  transform: rotateY(180deg);
+  color: lightgreen;
+}
+.flashcard-app .card-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+.flashcard-app .info {
+  font-size: 2vmax;
+  top: 5%;
+  right: 5%;
+  position: relative;
+  float: right;
+}
+
+.btn-link.removeCard {
+  color: red;
+  /* margin-left: 5px; */
+  width: 15%;
+}
+
+.madeCardContainer {
+  width: 75%;
+}
+
+.newCardContainer {
+  height: 75px
+}
+
+.newCardFront {
+  display: inline-block;
+  width: 30%;
+  text-align: justify;
+}
+
+.newCardBack {
+  display: inline-block;
+  width: 30%;
+  text-align: justify;
+}
+
+/* CAFE SEARCH STYLING */
+
+.cafeView-modal {
+  width: 50%;
+  height: 95%;
+}
+
+.cafe-card:hover{
+  cursor: pointer;
+ }
+
+ .modal-header {
+  text-align: center;
+}
+
+.amz {
+  margin-top: 3%;
+  display: inline-block;
+  align: center;
+}
+/* .stars {
+  margin-top: 3%;
+  align: center;
+} */
