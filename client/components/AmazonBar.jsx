@@ -75,39 +75,42 @@ class AmazonBar extends React.Component {
   }
 
   
-  render () {
+  render() {
     return (
-      <div class = 'sidebysideLeft'>
-        <img src = {this.state.amazonSource} width = '100' height = '100'/>
-        <Nav bsStyle = 'pills' stacked activeKey = {1} onSelect = {this.handleSelect}>
+      <div align='center'>
+        <Nav bsStyle='pills' activeKey={1} onSelect={this.handleSelect} className='amz nav'>
 
-          <NavItem eventKey = {
-                this.state.pens
-            }>
-          <img src= {this.state.pens.source} width = '100' height = '100'/>
-          <AmazonBarCollapse product = {this.state.pens} handleConfirm = {this.handleConfirm}/>
+          <NavItem disabled >
+            <img src={this.state.amazonSource} width='100' height='100' />
+          </NavItem>
+
+          <NavItem eventKey={
+            this.state.pens
+          }>
+            <img src={this.state.pens.source} width='75' height='75' />
+            <AmazonBarCollapse product={this.state.pens} handleConfirm={this.handleConfirm} />
 
           </NavItem>
-          <NavItem eventKey = {
-                this.state.paper
-            }>
-          <img src= {this.state.paper.source} width = '100' height = '100'/>   
-          <AmazonBarCollapse product = {this.state.paper} handleConfirm = {this.handleConfirm}/>
+          <NavItem eventKey={
+            this.state.paper
+          }>
+            <img src={this.state.paper.source} width='75' height='75' />
+            <AmazonBarCollapse product={this.state.paper} handleConfirm={this.handleConfirm} />
 
-            
-          </NavItem>
-          <NavItem eventKey = {
-                this.state.postits
-            }>
-          <img src= {this.state.postits.source} width = '100' height = '100'/>        
-           <AmazonBarCollapse product = {this.state.postits} handleConfirm = {this.handleConfirm}/>
 
           </NavItem>
-          <NavItem eventKey = {
-                this.state.highlighters
-            }>
-          <img src= {this.state.highlighters.source} width = '100' height = '100'/>  
-          <AmazonBarCollapse product = {this.state.highlighters} handleConfirm = {this.handleConfirm}/>
+          <NavItem eventKey={
+            this.state.postits
+          }>
+            <img src={this.state.postits.source} width='75' height='75' />
+            <AmazonBarCollapse product={this.state.postits} handleConfirm={this.handleConfirm} />
+
+          </NavItem>
+          <NavItem eventKey={
+            this.state.highlighters
+          }>
+            <img src={this.state.highlighters.source} width='75' height='75' />
+            <AmazonBarCollapse product={this.state.highlighters} handleConfirm={this.handleConfirm} />
 
 
           </NavItem>

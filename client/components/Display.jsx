@@ -363,17 +363,8 @@ class Display extends React.Component {
                         </Col>
                       </Row>
                     </Grid>
-                    <AmazonBar creditCard={this.props.creditCard} shippingAddress={
-                    {
-                      address1: this.state.currentCafe.location.address1,
-                      address2: this.state.currentCafe.location.address2 ? this.state.currentCafe.location.address2 : '',
-                      state: this.state.currentCafe.location.state,
-                      city: this.state.currentCafe.location.city,
-                      zip_code: this.state.currentCafe.location.zip_code
-                    }
-                    } />
 
-                    <Carousel bsClass='sidebysideRight carousel'>
+                    <Carousel bsClass='carousel'>
                       <Carousel.Item>
                         <img
                           style={{ maxWidth: '600px', height: '50%' }}
@@ -416,6 +407,15 @@ class Display extends React.Component {
                         submitReview={this.submitReview}
                       />
                     </div>
+                <AmazonBar creditCard={this.props.creditCard} shippingAddress={
+                {
+                  address1: this.state.currentCafe.location.address1,
+                  address2: this.state.currentCafe.location.address2 ? this.state.currentCafe.location.address2 : '',
+                  state: this.state.currentCafe.location.state,
+                  city: this.state.currentCafe.location.city,
+                  zip_code: this.state.currentCafe.location.zip_code
+                }
+                } />
                   </div>
                 </Modal.Body>
               </Modal>
