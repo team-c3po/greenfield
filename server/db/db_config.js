@@ -4,7 +4,7 @@ let dbConfig;
 
 try {
     dbConfig = require('./config.js').dbConfig
-} catch {
+} catch (err) {
     dbConfig = process.env.dbConfig
 } 
 
