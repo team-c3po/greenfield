@@ -1,5 +1,5 @@
 module.exports = {
-    dbConfig = {
+    dbConfig : {
         host: '',
         user: '',
         password: '',
