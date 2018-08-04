@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Thumbnail,
   Button,
 } from 'react-bootstrap';
 import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
@@ -12,7 +11,13 @@ import {
   InfoWindow
 } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
-import {GOOGLE_MAPS_API_KEY} from '../../config_example.js';
+
+let GOOGLE_MAPS_API_KEY;
+try {
+  GOOGLE_MAPS_API_KEY = require('../../config.js').GOOGLE_MAPS_API_KEY;
+} catch (err) {
+  GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+}
 
 const Map = compose(
   withProps({
