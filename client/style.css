@@ -200,3 +200,9 @@ a:focus {
  .modal-header {
   text-align: center;
 }
+
+.amz {
+  margin-top: 3%;
+  display: inline-block;
+  align: center;
+}
