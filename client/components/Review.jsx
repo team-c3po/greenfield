@@ -19,6 +19,7 @@ class Review extends React.Component {
     if (this.props.loggedIn) {
       return (
         <div>
+          <h4>Rate this STUD(y) spot</h4>
           <Grid>
             <Row>
               <Col xs={6} md={2}>
