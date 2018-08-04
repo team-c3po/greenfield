@@ -1,9 +1,15 @@
 const axios = require('axios');
-const config = require('../../config.js');
+
+let YELP_API_KEY;
+try {
+  YELP_API_KEY = require('../../config.js').YELPAPI;
+} catch (err) {
+  YELP_API_KEY = process.env.YELP_API_KEY;
+}
 
 let options = {
   headers: {
-    Authorization: `Bearer ${config.YELPAPI}`
+    Authorization: `Bearer ${YELP_API_KEY}`
   }
 };
 
